@@ -1,0 +1,13 @@
+version: "2.34.0"
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234567
+      POSTGRES_DB: accessControl
+    volumes:
+      - C:\temp\Codigos\postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
