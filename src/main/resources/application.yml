@@ -19,12 +19,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     open-in-view: true
-  redis:
-    host: localhost
-    port: 6379
   docker:
     compose:
       file: ./docker/docker-compose.yaml
-  doc:
-    swagger-ui:
-      path: /swagger-ui.html
