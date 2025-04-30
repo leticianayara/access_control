@@ -3,6 +3,8 @@ package br.com.meta.services;
 import br.com.meta.models.Visitor;
 import br.com.meta.repositories.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,12 @@ public class VisitorService {
         return repository.findAll(PageRequest.of(page,limit));
     }
 
+    @Cacheable(value = "visitors_cache", key="#id")
     public Optional<Visitor> findById(String id){
         return repository.findById(id);
     }
 
+    @CacheEvict(value = "visitors_cache", key="#visitor.id")
     public Visitor save(Visitor visitor){
         return repository.save(visitor);
     }
@@ -31,6 +35,7 @@ public class VisitorService {
         repository.deleteById(id);
     }
 
+    @CacheEvict(value = "visitors_cache", key="#id")
     public Visitor update(String id , Visitor obj) {
         Visitor entity = repository.findById(id).orElseThrow();
         updateData(entity, obj);

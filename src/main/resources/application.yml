@@ -22,3 +22,9 @@ spring:
   docker:
     compose:
       file: ./docker/docker-compose.yaml
+  redis:
+    host: ${HOST:localhost}
+    port: ${PORT:6379}
+  cache:
+    type: redis
+    cache-names: visitors_cache
