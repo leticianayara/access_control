@@ -26,7 +26,6 @@ public class VisitorService {
         return repository.findById(id);
     }
 
-    @CacheEvict(value = "visitors_cache", key="#visitor.id")
     public Visitor save(Visitor visitor){
         return repository.save(visitor);
     }
