@@ -1,4 +1,3 @@
-version: "v2.34.0-desktop.1"
 
 services:
   postgres:
@@ -11,7 +10,7 @@ services:
     volumes:
       - C:\temp\Codigos\postgres:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - 5432:5432
     networks:
       - default
   redis:
@@ -19,11 +18,17 @@ services:
     container_name: "accessControlRedis"
     hostname: localhost
     ports:
-      - "6379:6379"
+      - 6379:6379
     networks:
       - default
     volumes:
       - redis-data:/data
+  rabbitmq:
+    image: "rabbitmq:management"
+    container_name: "accessControlRabbit"
+    ports:
+      - 5672:5672
+      - 15672:15672
 
 networks:
   default:
