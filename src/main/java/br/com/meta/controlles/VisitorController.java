@@ -1,7 +1,7 @@
 package br.com.meta.controlles;
 
 import br.com.meta.dto.VisitorDTO;
-import br.com.meta.models.Visitor;
+import br.com.meta.producers.VisitorRequestProducer;
 import br.com.meta.services.VisitorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +23,10 @@ public class VisitorController {
 
     @Autowired
     private VisitorService service;
+
+    @Autowired
+    private VisitorRequestProducer produceMessageService;
+
 
     @GetMapping
     @Operation(summary = "Lista de visitantes", description = "Buscar a lista de visitantes")
@@ -68,11 +70,8 @@ public class VisitorController {
             @ApiResponse(responseCode = "500", description = " Erro Interno do Servidor"),
             @ApiResponse(responseCode = "404", description = "Não encontrado")
     })
-    public ResponseEntity<VisitorDTO> save(@Parameter(description = "dados do visitante") @RequestBody VisitorDTO visitor){
-        VisitorDTO obj = service.save(visitor);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);
+    public String save(@Parameter(description = "dados do visitante") @RequestBody String visitor){
+        return produceMessageService.produceMessage(visitor);
     }
 
     @PutMapping(value = "/{id}")

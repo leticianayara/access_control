@@ -57,14 +57,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Docker-compose -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- Postgres -->
 		<dependency>
 			<groupId>org.postgresql</groupId>

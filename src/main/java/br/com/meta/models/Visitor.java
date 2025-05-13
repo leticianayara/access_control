@@ -1,7 +1,6 @@
 package br.com.meta.models;
 
 import jakarta.persistence.*;
-import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serial;
 import java.io.Serializable;

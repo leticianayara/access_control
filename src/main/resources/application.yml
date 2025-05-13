@@ -23,6 +23,3 @@ spring:
     host: localhost
     port: 6379
     password:
-  docker:
-    compose:
-      file: ./docker/docker-compose.yaml
