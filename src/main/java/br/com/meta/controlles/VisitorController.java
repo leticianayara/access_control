@@ -8,12 +8,18 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -27,7 +33,6 @@ public class VisitorController {
     @Autowired
     private VisitorRequestProducer produceMessageService;
 
-
     @GetMapping
     @Operation(summary = "Lista de visitantes", description = "Buscar a lista de visitantes")
     @ApiResponses(value = {
@@ -39,9 +44,15 @@ public class VisitorController {
             @ApiResponse(responseCode = "404", description = "Não encontrado")
     })
     public ResponseEntity<List<VisitorDTO>> findAll(@Parameter(description = "número da página") @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                                    @Parameter(description = "quantidade por página") @RequestParam(value = "limit", defaultValue = "5") Integer limit){
-        List<VisitorDTO> list = service.findAll(page,limit);
-        return  ResponseEntity.ok().body(list);
+                                                    @Parameter(description = "quantidade por página") @RequestParam(value = "limit", defaultValue = "5") Integer limit) {
+        try {
+            List<VisitorDTO> list = null;
+            list = service.findAll(page, limit);
+            return ResponseEntity.ok().body(list);
+        }catch (MethodArgumentTypeMismatchException ex){
+            throw new RuntimeException();
+        }
+
     }
 
     @GetMapping(value = "/{id}")
@@ -55,8 +66,14 @@ public class VisitorController {
             @ApiResponse(responseCode = "404", description = "Não encontrado")
     })
     public ResponseEntity<Optional<VisitorDTO>> findById(@Parameter(description = "identificador") @PathVariable("id") String id){
-        Optional<VisitorDTO> obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        try{
+            Optional<VisitorDTO> obj = service.findById(id);
+            return ResponseEntity.ok().body(obj);
+        }catch (NoSuchElementException e){
+            throw new NoSuchElementException("Não tem valor presente.");
+        } catch (HttpMessageNotReadableException e){
+            throw new HttpMessageNotReadableException("Erro interno.");
+        }
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -70,7 +87,7 @@ public class VisitorController {
             @ApiResponse(responseCode = "500", description = " Erro Interno do Servidor"),
             @ApiResponse(responseCode = "404", description = "Não encontrado")
     })
-    public String save(@Parameter(description = "dados do visitante") @RequestBody String visitor){
+    public String save(@Parameter(description = "dados do visitante") @RequestBody String visitor) {
         return produceMessageService.produceMessage(visitor);
     }
 
@@ -87,8 +104,15 @@ public class VisitorController {
     public ResponseEntity<VisitorDTO> update(
             @Parameter(description = "identificador") @PathVariable("id") String id,
             @Parameter(description = "dados visiante") @RequestBody VisitorDTO visitorDTO){
-        VisitorDTO obj = service.update(id, visitorDTO);
-        return ResponseEntity.ok().body(obj);
+        try {
+
+            VisitorDTO obj = service.update(id, visitorDTO);
+            return ResponseEntity.ok().body(obj);
+        }catch (NoSuchElementException e){
+            throw new NoSuchElementException("Não tem valor presente.");
+        } catch (HttpMessageNotReadableException e){
+            throw new HttpMessageNotReadableException("Erro interno.");
+        }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
