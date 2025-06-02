@@ -1,5 +1,6 @@
-package br.com.meta.producers;
+package br.com.meta.access_control.producers;
 
+import br.com.meta.producers.VisitorRequestProducer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

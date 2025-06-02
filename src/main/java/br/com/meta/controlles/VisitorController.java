@@ -8,13 +8,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
@@ -65,9 +62,9 @@ public class VisitorController {
             @ApiResponse(responseCode = "500", description = " Erro Interno do Servidor"),
             @ApiResponse(responseCode = "404", description = "Não encontrado")
     })
-    public ResponseEntity<Optional<VisitorDTO>> findById(@Parameter(description = "identificador") @PathVariable("id") String id){
+    public ResponseEntity<VisitorDTO> findById(@Parameter(description = "identificador") @PathVariable("id") String id){
         try{
-            Optional<VisitorDTO> obj = service.findById(id);
+            VisitorDTO obj = service.findById(id);
             return ResponseEntity.ok().body(obj);
         }catch (NoSuchElementException e){
             throw new NoSuchElementException("Não tem valor presente.");

@@ -1,10 +1,10 @@
-package br.com.meta.controllers;
+package br.com.meta.access_control.controllers;
 
+import br.com.meta.access_control.producers.VisitorRequestProducerTest;
 import br.com.meta.controlles.VisitorController;
 import br.com.meta.dto.VisitorDTO;
-import br.com.meta.producers.VisitorRequestProducerTest;
 import br.com.meta.services.VisitorService;
-import br.com.meta.utils.EntityUtils;
+import br.com.meta.access_control.utils.EntityUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -63,12 +63,12 @@ public class VisitorControllTest {
     @Test
     public void shouldFindByd(){
 
-        Optional<VisitorDTO> obj = EntityUtils.criarVititanteDTO();
+        VisitorDTO obj = EntityUtils.criarDTO();
         when(service.findById(any())).thenReturn(obj);
 
-        ResponseEntity<Optional<VisitorDTO>> objDTO = controller.findById(any());
+        ResponseEntity<VisitorDTO> objDTO = controller.findById(any());
 
-        assertThat(objDTO.getBody().get().getId()).isEqualTo(obj.get().getId());
+        assertThat(objDTO.getBody().getId()).isEqualTo(obj.getId());
     }
 
     @Test

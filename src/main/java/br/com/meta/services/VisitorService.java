@@ -1,6 +1,7 @@
 package br.com.meta.services;
 
 import br.com.meta.dto.VisitorDTO;
+import br.com.meta.exception.utils.VisitorException;
 import br.com.meta.models.Visitor;
 import br.com.meta.repositories.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,14 @@ public class VisitorService {
     }
 
     @Cacheable(value = "visitors_cache", key="#id")
-    public Optional<VisitorDTO> findById(String id) throws NoSuchElementException, HttpMessageNotReadableException{
+    public VisitorDTO findById(String id) throws NoSuchElementException, HttpMessageNotReadableException{
 
-        Optional<Visitor> visitor = repository.findById(id);
-        Optional<VisitorDTO> visitorDTO;
-        visitorDTO = visitor.stream().map(VisitorDTO::new).findFirst();
-        return visitorDTO;
+        Visitor visitor = repository.findById(id).orElseThrow(() -> new VisitorException(id));
+        return new VisitorDTO(visitor);
     }
 
     public void delete(String id) throws NoSuchElementException, HttpMessageNotReadableException{
+        repository.findById(id).orElseThrow(() -> new VisitorException(id));
         repository.deleteById(id);
     }
 
@@ -46,7 +46,7 @@ public class VisitorService {
 
         checkVisitor(obj);
 
-        Visitor entity = repository.findById(id).orElseThrow();
+        Visitor entity = repository.findById(id).orElseThrow(() -> new VisitorException(id));
         updateData(entity, obj);
         entity = repository.save(entity);
         VisitorDTO visitorDTO;

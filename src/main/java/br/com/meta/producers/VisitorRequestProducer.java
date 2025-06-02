@@ -14,8 +14,15 @@ public class VisitorRequestProducer {
     }
 
     public String produceMessage(String message) {
+
+        String[] strSemRegex = message.split("[\\,\\.\\{\\}]");
+        String[] strSemPontos = strSemRegex[2].split(":");
+        if(strSemPontos[1].trim().isEmpty() || strSemPontos[1].trim().equals("null") ){
+            throw new IllegalArgumentException("Nome não pode ser nulo");
+        }
+
         rabbitTemplate.convertAndSend(ConfigureRabbitMq.EXCHANGE_NAME, "crud-request-rout-key.messages",
                 message);
-        return "Message(" + message + ")" + " has been produced.";
+        return "Message has been produced.";
     }
 }
