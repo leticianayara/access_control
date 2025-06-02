@@ -1,0 +1,21 @@
+{
+	"id": "7aa5d313-1ea0-4dc2-823c-e0a461092946",
+	"values": [
+		{
+			"key": "id",
+			"value": "29ec4632-48ac-4617-b870-99fcad82654c",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/access-control/v1/visitors",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2025-06-02T18:45:34.674Z",
+	"_postman_exported_using": "Postman/11.47.4"
+}

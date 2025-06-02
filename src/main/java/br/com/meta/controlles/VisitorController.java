@@ -41,7 +41,7 @@ public class VisitorController {
             @ApiResponse(responseCode = "404", description = "Não encontrado")
     })
     public ResponseEntity<List<VisitorDTO>> findAll(@Parameter(description = "número da página") @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                                    @Parameter(description = "quantidade por página") @RequestParam(value = "limit", defaultValue = "50q") Integer limit) {
+                                                    @Parameter(description = "quantidade por página") @RequestParam(value = "limit", defaultValue = "50") Integer limit) {
         try {
             List<VisitorDTO> list = null;
             list = service.findAll(page, limit);

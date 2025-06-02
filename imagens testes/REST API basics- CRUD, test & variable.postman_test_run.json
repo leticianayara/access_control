@@ -1,0 +1,182 @@
+{
+	"id": "8f9a58a2-2ca1-47f0-b5de-3f0289ccf4ee",
+	"name": "REST API basics: CRUD, test & variable",
+	"timestamp": "2025-06-02T18:36:15.128Z",
+	"collection_id": "10478999-2d36d9b2-e015-4ef0-8480-fdaf96285acf",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 10,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-06-02T18:36:14.464Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "b6e34f8d-bbd1-4f06-82c9-721487052dbd",
+			"name": "Get data",
+			"url": "http://localhost:8080/access-control/v1/visitors/29ec4632-48ac-4617-b870-99fcad82654c",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"validate status code": true,
+				"Validate response data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate response data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"validate status code": true,
+					"Validate response data": true
+				}
+			]
+		},
+		{
+			"id": "75a911e4-62f4-4594-87d0-7fa8db43b14f",
+			"name": "Post data",
+			"url": "http://localhost:8080/access-control/v1/visitors",
+			"time": 5,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Successful POST request": true,
+				"validate status code": true,
+				"Validate response data": true
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate response data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Successful POST request": true,
+					"validate status code": true,
+					"Validate response data": true
+				}
+			]
+		},
+		{
+			"id": "3ce8741d-2646-45dd-b215-96d7bdd49798",
+			"name": "Update data",
+			"url": "http://localhost:8080/access-control/v1/visitors/29ec4632-48ac-4617-b870-99fcad82654c",
+			"time": 11,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Successful PUT request": true,
+				"validate status code": true,
+				"Validate response data": true
+			},
+			"testPassFailCounts": {
+				"Successful PUT request": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate status code": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate response data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Successful PUT request": true,
+					"validate status code": true,
+					"Validate response data": true
+				}
+			]
+		},
+		{
+			"id": "d5de5d65-0dae-49ad-9833-e9305d812bca",
+			"name": "Delete data",
+			"url": "http://localhost:8080/access-control/v1/visitors/29ec4632-48ac-4617-b870-99fcad82654c",
+			"time": 8,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Successful DELETE request": true
+			},
+			"testPassFailCounts": {
+				"Successful DELETE request": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Successful DELETE request": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 32,
+	"collection": {
+		"requests": [
+			{
+				"id": "b6e34f8d-bbd1-4f06-82c9-721487052dbd",
+				"method": "GET"
+			},
+			{
+				"id": "75a911e4-62f4-4594-87d0-7fa8db43b14f",
+				"method": "POST"
+			},
+			{
+				"id": "3ce8741d-2646-45dd-b215-96d7bdd49798",
+				"method": "PUT"
+			},
+			{
+				"id": "d5de5d65-0dae-49ad-9833-e9305d812bca",
+				"method": "DELETE"
+			}
+		]
+	}
+}
