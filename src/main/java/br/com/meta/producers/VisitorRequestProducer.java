@@ -15,8 +15,13 @@ public class VisitorRequestProducer {
 
     public String produceMessage(String message) {
 
+        //retirando os pontos , . { } da string message
         String[] strSemRegex = message.split("[\\,\\.\\{\\}]");
+
+        //remove os : das string na posição 2 das strings do passo anterior(name)
         String[] strSemPontos = strSemRegex[2].split(":");
+
+        //se a string na posição 1 no passo anterior é vazia ou "null"
         if(strSemPontos[1].trim().isEmpty() || strSemPontos[1].trim().equals("null") ){
             throw new IllegalArgumentException("Nome não pode ser nulo");
         }
